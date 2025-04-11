@@ -29,8 +29,13 @@ This project involves cleaning, analyzing, and visualizing COVID-19 data based o
 - Generated geographic severity heatmap using ZIP-level latitude and longitude.
 - Geo heatmap highlights hotspots with highest case density.
 
+### ✅ Objective 5: Outlier Detection in Case Rates Using Boxplot
+
+- Identified extreme variations in case rates across ZIP codes.
+- Visualized distribution using a boxplot.
+- Detected outlier ZIPs with unusually high or low infection rates.
+
 ---
 
 ## Upcoming Objectives:
-- Outlier Detection using Boxplots
 - Exploratory Data Analysis with Advanced Visualizations
