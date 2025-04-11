@@ -147,6 +147,7 @@ def zip_code_severity_analysis(df):
     plt.xlabel("ZIP Code")
     plt.tight_layout()
     plt.savefig("top_zip_cases.png", dpi=300)
+    plt.show()
     plt.close()
 
     # Plot: Top 10 ZIPs by Deaths
@@ -157,6 +158,7 @@ def zip_code_severity_analysis(df):
     plt.xlabel("ZIP Code")
     plt.tight_layout()
     plt.savefig("top_zip_deaths.png", dpi=300)
+    plt.show()
     plt.close()
 
     # Plot: Top 10 ZIPs by Tests
@@ -167,6 +169,7 @@ def zip_code_severity_analysis(df):
     plt.xlabel("ZIP Code")
     plt.tight_layout()
     plt.savefig("top_zip_tests.png", dpi=300)
+    plt.show()
     plt.close()
 
     # print("✅ Bar plots saved for ZIP-wise total Cases, Deaths, and Tests.")
@@ -217,6 +220,52 @@ def plot_case_rate_outliers(df):
 
     # print("✅ Outlier boxplot saved as 'case_rate_outliers_boxplot.png'")
 
+# Objective 6
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+def perform_eda_visualizations(df):
+    sns.set(style="whitegrid")
+    
+    # Histogram of Weekly Cases
+    plt.figure(figsize=(10, 6))
+    sns.histplot(df['Cases - Weekly'], bins=30, kde=False, color='skyblue')
+    plt.title("Distribution of Weekly Cases")
+    plt.xlabel("Cases - Weekly")
+    plt.ylabel("Frequency")
+    plt.tight_layout()
+    plt.savefig("hist_cases_weekly.png", dpi=300)
+    plt.show()
+    plt.close()
+
+    # Scatter Plot: Cases vs Tests
+    plt.figure(figsize=(10, 6))
+    sns.scatterplot(data=df, x='Tests - Weekly', y='Cases - Weekly', alpha=0.6)
+    plt.title("Scatter Plot: Weekly Tests vs Weekly Cases")
+    plt.xlabel("Tests - Weekly")
+    plt.ylabel("Cases - Weekly")
+    plt.tight_layout()
+    plt.savefig("scatter_tests_vs_cases.png", dpi=300)
+    plt.show()
+    plt.close()
+
+    # KDE Plot of Deaths
+    plt.figure(figsize=(10, 6))
+    sns.kdeplot(df['Deaths - Weekly'], fill=True, color='lightcoral')
+    plt.title("Density Plot of Weekly Deaths")
+    plt.xlabel("Deaths - Weekly")
+    plt.tight_layout()
+    plt.savefig("kde_deaths_weekly.png", dpi=300)
+    plt.show()
+    plt.close()
+
+    # Summary statistics
+    summary = df[['Cases - Weekly', 'Deaths - Weekly', 'Tests - Weekly']].describe()
+    print("🔍 Summary Statistics:\n", summary)
+
+    # print("✅ EDA plots saved: histogram, scatter, and density.")
+
 # Main driver
 def main():
     filepath = "COVID_data.csv"  # adjust path as needed
@@ -243,6 +292,10 @@ def main():
 
     # Objective 5
     plot_case_rate_outliers(df)
+
+    # Objective 6
+    perform_eda_visualizations(df)
+
 
 
 if __name__ == "__main__":
