@@ -44,16 +44,29 @@ def remove_outliers(df, columns):
     return df
 
 # Normalize data using Min-Max Scaling
-def normalize_columns(df, columns):
-    scaler = MinMaxScaler()
-    df[[col + ' (Norm)' for col in columns]] = scaler.fit_transform(df[columns])
-    print("Normalization done.")
-    return df
+def normalize_columns(df, cols):
+    df_normalized = df.copy()
+
+    for col in cols:
+        unique_vals = df_normalized[col].nunique()
+
+        if unique_vals > 1:
+            # Apply Min-Max Scaling
+            scaler = MinMaxScaler()
+            df_normalized[[col + ' (Norm)']] = scaler.fit_transform(df_normalized[[col]])
+        else:
+            # Copy the column as-is if only one unique value
+            df_normalized[col + ' (Norm)'] = df_normalized[col]
+            print(f"⚠️ Skipped normalization on '{col}' due to constant value.")
+
+    return df_normalized
+
+
 
 # Objective 2
 def plot_weekly_trends(df):
     # Grouping by week number (or use 'Week Start' if you want exact dates)
-    weekly_data = df.groupby('Week Number')[[
+    weekly_data = df.groupby('Week Start')[[
         'Cases - Weekly', 'Deaths - Weekly', 'Tests - Weekly'
     ]].sum().reset_index()
 
@@ -62,12 +75,12 @@ def plot_weekly_trends(df):
 
     # Line Plot
     plt.figure(figsize=(12, 6))
-    plt.plot(weekly_data['Week Number'], weekly_data['Cases - Weekly'], label='Cases', marker='o')
-    plt.plot(weekly_data['Week Number'], weekly_data['Deaths - Weekly'], label='Deaths', marker='s')
-    plt.plot(weekly_data['Week Number'], weekly_data['Tests - Weekly'], label='Tests', marker='^')
+    plt.plot(weekly_data['Week Start'], weekly_data['Cases - Weekly'], label='Cases', marker='o')
+    plt.plot(weekly_data['Week Start'], weekly_data['Deaths - Weekly'], label='Deaths', marker='s')
+    plt.plot(weekly_data['Week Start'], weekly_data['Tests - Weekly'], label='Tests', marker='^')
 
     plt.title('Weekly COVID-19 Trends')
-    plt.xlabel('Week Number')
+    plt.xlabel('Week Start')
     plt.ylabel('Count')
     plt.legend()
     plt.tight_layout()
@@ -76,7 +89,7 @@ def plot_weekly_trends(df):
 
     # Stacked Area Plot
     plt.figure(figsize=(12, 6))
-    plt.stackplot(weekly_data['Week Number'],
+    plt.stackplot(weekly_data['Week Start'],
                   weekly_data['Cases - Weekly'],
                   weekly_data['Deaths - Weekly'],
                   weekly_data['Tests - Weekly'],
@@ -84,7 +97,7 @@ def plot_weekly_trends(df):
                   alpha=0.7)
 
     plt.title('Weekly COVID-19 Stacked Area Chart')
-    plt.xlabel('Week Number')
+    plt.xlabel('Week Start')
     plt.ylabel('Total Count')
     plt.legend(loc='upper left')
     plt.tight_layout()
@@ -110,9 +123,53 @@ def correlation_analysis(df):
     plt.savefig("correlation_heatmap.png", dpi=300)
     plt.show()
     plt.close()
-    print(df[['Cases - Weekly', 'Deaths - Weekly']].describe())
-    print(df[['Cases - Weekly', 'Deaths - Weekly']].head(10))
+    
+# Objective 4 
+def zip_code_severity_analysis(df):
+    # Group by ZIP and sum the metrics
+    zip_summary = df.groupby('ZIP Code')[[
+        'Cases - Weekly', 'Deaths - Weekly', 'Tests - Weekly'
+    ]].sum().reset_index()
 
+    # Sort and get top 10 for each
+    top_cases = zip_summary.sort_values(by='Cases - Weekly', ascending=False).head(10)
+    top_deaths = zip_summary.sort_values(by='Deaths - Weekly', ascending=False).head(10)
+    top_tests = zip_summary.sort_values(by='Tests - Weekly', ascending=False).head(10)
+
+    # Set style
+    sns.set(style="whitegrid")
+
+    # Plot: Top 10 ZIPs by Cases
+    plt.figure(figsize=(10, 6))
+    sns.barplot(data=top_cases, x='ZIP Code', y='Cases - Weekly', palette='Reds_r')
+    plt.title("Top 10 ZIP Codes by Total Cases")
+    plt.ylabel("Total Cases")
+    plt.xlabel("ZIP Code")
+    plt.tight_layout()
+    plt.savefig("top_zip_cases.png", dpi=300)
+    plt.close()
+
+    # Plot: Top 10 ZIPs by Deaths
+    plt.figure(figsize=(10, 6))
+    sns.barplot(data=top_deaths, x='ZIP Code', y='Deaths - Weekly', palette='Greys')
+    plt.title("Top 10 ZIP Codes by Total Deaths")
+    plt.ylabel("Total Deaths")
+    plt.xlabel("ZIP Code")
+    plt.tight_layout()
+    plt.savefig("top_zip_deaths.png", dpi=300)
+    plt.close()
+
+    # Plot: Top 10 ZIPs by Tests
+    plt.figure(figsize=(10, 6))
+    sns.barplot(data=top_tests, x='ZIP Code', y='Tests - Weekly', palette='Blues')
+    plt.title("Top 10 ZIP Codes by Total Tests")
+    plt.ylabel("Total Tests")
+    plt.xlabel("ZIP Code")
+    plt.tight_layout()
+    plt.savefig("top_zip_tests.png", dpi=300)
+    plt.close()
+
+    # print("✅ Bar plots saved for ZIP-wise total Cases, Deaths, and Tests.")
 
 # Main driver
 def main():
@@ -121,18 +178,22 @@ def main():
     df = remove_duplicates(df)
     df = handle_missing_values(df)
     df = convert_data_types(df)
-    df = remove_outliers(df, ['Case Rate - Weekly', 'Death Rate - Weekly', 'Test Rate - Weekly'])
-    df = normalize_columns(df, ['Case Rate - Weekly', 'Death Rate - Weekly', 'Test Rate - Weekly'])
+    # df = remove_outliers(df, ['Case Rate - Weekly', 'Death Rate - Weekly', 'Test Rate - Weekly'])
+    # df = normalize_columns(df, ['Case Rate - Weekly', 'Death Rate - Weekly', 'Test Rate - Weekly'])
 
     # Save cleaned dataset (optional)
     df.to_csv("Cleaned_COVID_data.csv", index=False)
     print("Cleaned data saved to 'Cleaned_COVID_data.csv'")
-
+    # df = load_data('COVID_data.csv')
     # Objective 2 
     plot_weekly_trends(df)
 
     # Objective 3
     correlation_analysis(df)
+
+    # Objective 4
+    zip_code_severity_analysis(df)
+
 
 if __name__ == "__main__":
     if __name__ == "__main__":
