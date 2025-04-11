@@ -1,8 +1,8 @@
-# app.py
-
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Load the dataset
 def load_data(filepath):
@@ -50,6 +50,47 @@ def normalize_columns(df, columns):
     print("Normalization done.")
     return df
 
+# Objective 2
+def plot_weekly_trends(df):
+    # Grouping by week number (or use 'Week Start' if you want exact dates)
+    weekly_data = df.groupby('Week Number')[[
+        'Cases - Weekly', 'Deaths - Weekly', 'Tests - Weekly'
+    ]].sum().reset_index()
+
+    # Set style
+    sns.set(style="whitegrid")
+
+    # Line Plot
+    plt.figure(figsize=(12, 6))
+    plt.plot(weekly_data['Week Number'], weekly_data['Cases - Weekly'], label='Cases', marker='o')
+    plt.plot(weekly_data['Week Number'], weekly_data['Deaths - Weekly'], label='Deaths', marker='s')
+    plt.plot(weekly_data['Week Number'], weekly_data['Tests - Weekly'], label='Tests', marker='^')
+
+    plt.title('Weekly COVID-19 Trends')
+    plt.xlabel('Week Number')
+    plt.ylabel('Count')
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig("weekly_line.png", dpi=300)
+    plt.show()
+
+    # Stacked Area Plot
+    plt.figure(figsize=(12, 6))
+    plt.stackplot(weekly_data['Week Number'],
+                  weekly_data['Cases - Weekly'],
+                  weekly_data['Deaths - Weekly'],
+                  weekly_data['Tests - Weekly'],
+                  labels=['Cases', 'Deaths', 'Tests'],
+                  alpha=0.7)
+
+    plt.title('Weekly COVID-19 Stacked Area Chart')
+    plt.xlabel('Week Number')
+    plt.ylabel('Total Count')
+    plt.legend(loc='upper left')
+    plt.tight_layout()
+    plt.savefig("weekly_area.png", dpi=300)
+    plt.show()
+
 # Main driver
 def main():
     filepath = "COVID_data.csv"  # adjust path as needed
@@ -64,7 +105,9 @@ def main():
     df.to_csv("Cleaned_COVID_data.csv", index=False)
     print("Cleaned data saved to 'Cleaned_COVID_data.csv'")
 
+    # Objective 2 
+    plot_weekly_trends(df)
+
 if __name__ == "__main__":
-    # Ensure the script runs only when executed directly
     if __name__ == "__main__":
         main()
