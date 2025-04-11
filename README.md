@@ -1,6 +1,16 @@
-# COVID-19 Data Analysis Project
+# 🦠 COVID-19 Data Analysis Project
 
-This project involves cleaning, analyzing, and visualizing COVID-19 data based on ZIP codes and weekly trends.
+This project performs a comprehensive data cleaning and analysis pipeline on ZIP code–level COVID-19 data. It covers everything from data preprocessing to visualization and statistical interpretation.
+
+---
+
+## 📁 Dataset Description
+
+- ZIP Code–wise weekly data
+- Includes: Weekly cases, deaths, tests, case rate, test rate, population, and spatial location
+- Spatial field: `ZIP Code Location` → POINT (longitude latitude)
+
+---
 
 ## Objectives Completed:
 
@@ -35,7 +45,38 @@ This project involves cleaning, analyzing, and visualizing COVID-19 data based o
 - Visualized distribution using a boxplot.
 - Detected outlier ZIPs with unusually high or low infection rates.
 
+### ✅ Objective 6: Exploratory Data Analysis (EDA) with Advanced Visualizations
+
+- Summary statistics for cases, deaths, and tests
+- Histogram of weekly cases
+- Scatter plot of tests vs cases
+- KDE plot for weekly deaths
+- Helped understand data trends, distributions, and relationships
+
 ---
 
-## Upcoming Objectives:
-- Exploratory Data Analysis with Advanced Visualizations
+## 🧠 Insights
+
+- Most ZIP codes showed consistent weekly trends with occasional spikes
+- Testing correlated with increased case detection
+- Death data was mostly missing or zero-filled
+- Geo visualization helped identify local hotspots effectively
+
+---
+
+## 📊 Tools & Libraries Used
+
+- **Python** (Pandas, NumPy)
+- **Matplotlib**, **Seaborn** for visualization
+- **Scikit-learn** for normalization
+- Git & GitHub for version control
+
+---
+
+## ✍️ Author
+
+**Samarth Garg**  
+2nd Year B.Tech, LPU  
+GitHub: [Samarthgarg14](https://github.com/Samarthgarg14)
+
+---
