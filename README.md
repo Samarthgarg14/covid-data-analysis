@@ -22,9 +22,15 @@ This project involves cleaning, analyzing, and visualizing COVID-19 data based o
 
 ![Correlation Heatmap](correlation_heatmap.png)
 
+### ✅ Objective 4: ZIP Code-wise COVID-19 Severity Analysis
+
+- Identified most affected ZIP codes using total Cases, Deaths, and Tests.
+- Visualized top 10 ZIP codes for each metric using bar plots.
+- Generated geographic severity heatmap using ZIP-level latitude and longitude.
+- Geo heatmap highlights hotspots with highest case density.
+
 ---
 
 ## Upcoming Objectives:
-- ZIP Code Wise Severity Analysis
 - Outlier Detection using Boxplots
 - Exploratory Data Analysis with Advanced Visualizations
