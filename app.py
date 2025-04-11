@@ -91,6 +91,29 @@ def plot_weekly_trends(df):
     plt.savefig("weekly_area.png", dpi=300)
     plt.show()
 
+# Objective 3
+def correlation_analysis(df):
+    # Select relevant columns
+    corr_df = df[['Cases - Weekly', 'Deaths - Weekly', 'Tests - Weekly']]
+    
+    # Compute correlation matrix
+    correlation_matrix = corr_df.corr()
+
+    # Print matrix
+    print("Correlation Matrix:\n", correlation_matrix)
+
+    # Plot heatmap
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt=".2f")
+    plt.title("Correlation Heatmap - Cases, Deaths, Tests")
+    plt.tight_layout()
+    plt.savefig("correlation_heatmap.png", dpi=300)
+    plt.show()
+    plt.close()
+    print(df[['Cases - Weekly', 'Deaths - Weekly']].describe())
+    print(df[['Cases - Weekly', 'Deaths - Weekly']].head(10))
+
+
 # Main driver
 def main():
     filepath = "COVID_data.csv"  # adjust path as needed
@@ -107,6 +130,9 @@ def main():
 
     # Objective 2 
     plot_weekly_trends(df)
+
+    # Objective 3
+    correlation_analysis(df)
 
 if __name__ == "__main__":
     if __name__ == "__main__":

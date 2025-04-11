@@ -15,10 +15,16 @@ This project involves cleaning, analyzing, and visualizing COVID-19 data based o
 - Stacked area chart to visualize comparative trends
 - Charts saved as PNGs
 
+### ✅ Objective 3: Correlation Analysis between Cases, Deaths, and Tests
+- A heatmap is generated to visualize the correlation between weekly cases, deaths, and tests.
+- It was observed that death data in this dataset appears to be largely absent or zero-filled, resulting in negligible correlation with weekly cases or tests.
+- Correlation heatmap image is saved in `correlation_heatmap.png`.
+
+![Correlation Heatmap](correlation_heatmap.png)
+
 ---
 
 ## Upcoming Objectives:
-- Correlation Analysis using Heatmap
 - ZIP Code Wise Severity Analysis
 - Outlier Detection using Boxplots
 - Exploratory Data Analysis with Advanced Visualizations
