@@ -171,6 +171,38 @@ def zip_code_severity_analysis(df):
 
     # print("✅ Bar plots saved for ZIP-wise total Cases, Deaths, and Tests.")
 
+def plot_geo_heatmap(df):
+    # Step 1: Extract latitude & longitude
+    df[['Longitude', 'Latitude']] = df['ZIP Code Location'].str.extract(r'POINT \((-?\d+\.\d+) (-?\d+\.\d+)\)').astype(float)
+
+    # Step 2: Aggregate by ZIP
+    zip_summary = df.groupby(['ZIP Code', 'Longitude', 'Latitude'])[
+        ['Cases - Weekly', 'Deaths - Weekly', 'Tests - Weekly']
+    ].sum().reset_index()
+
+    # Step 3: Plot heatmap (scatter plot style)
+    plt.figure(figsize=(10, 6))
+    sns.scatterplot(
+        data=zip_summary,
+        x='Longitude', y='Latitude',
+        size='Cases - Weekly',
+        hue='Cases - Weekly',
+        palette='Reds',
+        sizes=(20, 300),
+        legend='brief'
+    )
+    plt.title("COVID-19 Severity by ZIP Code (Geo Heatmap)")
+    plt.xlabel("Longitude")
+    plt.ylabel("Latitude")
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig("geo_zip_heatmap_cases.png", dpi=300)
+    plt.show()
+    plt.close()
+
+    # print("✅ Geo heatmap saved as 'geo_zip_heatmap_cases.png'")
+
+
 # Main driver
 def main():
     filepath = "COVID_data.csv"  # adjust path as needed
@@ -193,6 +225,8 @@ def main():
 
     # Objective 4
     zip_code_severity_analysis(df)
+    plot_geo_heatmap(df)
+
 
 
 if __name__ == "__main__":
