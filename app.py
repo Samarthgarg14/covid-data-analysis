@@ -202,6 +202,20 @@ def plot_geo_heatmap(df):
 
     # print("✅ Geo heatmap saved as 'geo_zip_heatmap_cases.png'")
 
+# Objective 5 
+
+def plot_case_rate_outliers(df):
+    plt.figure(figsize=(10, 6))
+    sns.boxplot(y=df['Case Rate - Weekly'], color='skyblue')
+    plt.title("Box Plot - Outlier Detection(Weekly Case Rates)")
+    plt.ylabel("Case Rate - Weekly")
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig("case_rate_outliers_boxplot.png", dpi=300)
+    plt.show()
+    plt.close()
+
+    # print("✅ Outlier boxplot saved as 'case_rate_outliers_boxplot.png'")
 
 # Main driver
 def main():
@@ -227,6 +241,8 @@ def main():
     zip_code_severity_analysis(df)
     plot_geo_heatmap(df)
 
+    # Objective 5
+    plot_case_rate_outliers(df)
 
 
 if __name__ == "__main__":
