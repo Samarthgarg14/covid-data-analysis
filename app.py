@@ -84,7 +84,7 @@ def plot_weekly_trends(df):
     plt.ylabel('Count')
     plt.legend()
     plt.tight_layout()
-    plt.savefig("weekly_line.png", dpi=300)
+    plt.savefig("images/weekly_line.png", dpi=300)
     plt.show()
 
     # Stacked Area Plot
@@ -101,7 +101,7 @@ def plot_weekly_trends(df):
     plt.ylabel('Total Count')
     plt.legend(loc='upper left')
     plt.tight_layout()
-    plt.savefig("weekly_area.png", dpi=300)
+    plt.savefig("images/weekly_area.png", dpi=300)
     plt.show()
 
 # Objective 3
@@ -120,7 +120,7 @@ def correlation_analysis(df):
     sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt=".2f")
     plt.title("Correlation Heatmap - Cases, Deaths, Tests")
     plt.tight_layout()
-    plt.savefig("correlation_heatmap.png", dpi=300)
+    plt.savefig("images/correlation_heatmap.png", dpi=300)
     plt.show()
     plt.close()
     
@@ -146,7 +146,7 @@ def zip_code_severity_analysis(df):
     plt.ylabel("Total Cases")
     plt.xlabel("ZIP Code")
     plt.tight_layout()
-    plt.savefig("top_zip_cases.png", dpi=300)
+    plt.savefig("images/top_zip_cases.png", dpi=300)
     plt.show()
     plt.close()
 
@@ -157,7 +157,7 @@ def zip_code_severity_analysis(df):
     plt.ylabel("Total Deaths")
     plt.xlabel("ZIP Code")
     plt.tight_layout()
-    plt.savefig("top_zip_deaths.png", dpi=300)
+    plt.savefig("images/top_zip_deaths.png", dpi=300)
     plt.show()
     plt.close()
 
@@ -168,7 +168,7 @@ def zip_code_severity_analysis(df):
     plt.ylabel("Total Tests")
     plt.xlabel("ZIP Code")
     plt.tight_layout()
-    plt.savefig("top_zip_tests.png", dpi=300)
+    plt.savefig("images/top_zip_tests.png", dpi=300)
     plt.show()
     plt.close()
 
@@ -199,7 +199,7 @@ def plot_geo_heatmap(df):
     plt.ylabel("Latitude")
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig("geo_zip_heatmap_cases.png", dpi=300)
+    plt.savefig("images/geo_zip_heatmap_cases.png", dpi=300)
     plt.show()
     plt.close()
 
@@ -214,7 +214,7 @@ def plot_case_rate_outliers(df):
     plt.ylabel("Case Rate - Weekly")
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig("case_rate_outliers_boxplot.png", dpi=300)
+    plt.savefig("images/case_rate_outliers_boxplot.png", dpi=300)
     plt.show()
     plt.close()
 
@@ -235,7 +235,7 @@ def perform_eda_visualizations(df):
     plt.xlabel("Cases - Weekly")
     plt.ylabel("Frequency")
     plt.tight_layout()
-    plt.savefig("hist_cases_weekly.png", dpi=300)
+    plt.savefig("images/hist_cases_weekly.png", dpi=300)
     plt.show()
     plt.close()
 
@@ -246,7 +246,7 @@ def perform_eda_visualizations(df):
     plt.xlabel("Tests - Weekly")
     plt.ylabel("Cases - Weekly")
     plt.tight_layout()
-    plt.savefig("scatter_tests_vs_cases.png", dpi=300)
+    plt.savefig("images/scatter_tests_vs_cases.png", dpi=300)
     plt.show()
     plt.close()
 
@@ -256,7 +256,7 @@ def perform_eda_visualizations(df):
     plt.title("Density Plot of Weekly Deaths")
     plt.xlabel("Deaths - Weekly")
     plt.tight_layout()
-    plt.savefig("kde_deaths_weekly.png", dpi=300)
+    plt.savefig("images/kde_deaths_weekly.png", dpi=300)
     plt.show()
     plt.close()
 

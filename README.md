@@ -30,7 +30,7 @@ This project performs a comprehensive data cleaning and analysis pipeline on ZIP
 - It was observed that death data in this dataset appears to be largely absent or zero-filled, resulting in negligible correlation with weekly cases or tests.
 - Correlation heatmap image is saved in `correlation_heatmap.png`.
 
-![Correlation Heatmap](correlation_heatmap.png)
+![Correlation Heatmap](images/correlation_heatmap.png)
 
 ### ✅ Objective 4: ZIP Code-wise COVID-19 Severity Analysis
 
