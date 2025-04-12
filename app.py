@@ -4,26 +4,22 @@ from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Load the dataset
 def load_data(filepath):
     df = pd.read_csv(filepath)
     print("Initial shape:", df.shape)
     return df
 
-# Remove duplicates
 def remove_duplicates(df):
     df = df.drop_duplicates()
     print("After removing duplicates:", df.shape)
     return df
 
-# Handle missing values with median imputation
 def handle_missing_values(df):
     numeric_cols = df.select_dtypes(include=np.number).columns
     df[numeric_cols] = df[numeric_cols].fillna(df[numeric_cols].median())
     print("Missing values handled.")
     return df
 
-# Convert date columns to datetime
 def convert_data_types(df):
     df['Week Start'] = pd.to_datetime(df['Week Start'])
     df['Week End'] = pd.to_datetime(df['Week End'])
