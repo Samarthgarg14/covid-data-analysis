@@ -264,11 +264,9 @@ def perform_eda_visualizations(df):
     summary = df[['Cases - Weekly', 'Deaths - Weekly', 'Tests - Weekly']].describe()
     print("🔍 Summary Statistics:\n", summary)
 
-    # print("✅ EDA plots saved: histogram, scatter, and density.")
-
 # Main driver
 def main():
-    filepath = "COVID_data.csv"  # adjust path as needed
+    filepath = "data/COVID_data.csv"  # adjust path as needed
     df = load_data(filepath)
     df = remove_duplicates(df)
     df = handle_missing_values(df)
@@ -277,9 +275,8 @@ def main():
     # df = normalize_columns(df, ['Case Rate - Weekly', 'Death Rate - Weekly', 'Test Rate - Weekly'])
 
     # Save cleaned dataset (optional)
-    df.to_csv("Cleaned_COVID_data.csv", index=False)
-    print("Cleaned data saved to 'Cleaned_COVID_data.csv'")
-    # df = load_data('COVID_data.csv')
+    df.to_csv("data/Cleaned_COVID_data.csv", index=False)
+    
     # Objective 2 
     plot_weekly_trends(df)
 
