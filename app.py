@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -26,32 +25,6 @@ def convert_data_types(df):
     df['ZIP Code'] = df['ZIP Code'].astype(str)
     print("Date and ZIP Code columns converted.")
     return df
-
-def remove_outliers(df, columns):
-    for col in columns:
-        Q1 = df[col].quantile(0.25)
-        Q3 = df[col].quantile(0.75)
-        IQR = Q3 - Q1
-        lower = Q1 - 1.5 * IQR
-        upper = Q3 + 1.5 * IQR
-        df = df[(df[col] >= lower) & (df[col] <= upper)]
-        print(f"Outliers removed in {col}")
-    return df
-
-def normalize_columns(df, cols):
-    df_normalized = df.copy()
-
-    for col in cols:
-        unique_vals = df_normalized[col].nunique()
-
-        if unique_vals > 1:
-            scaler = MinMaxScaler()
-            df_normalized[[col + ' (Norm)']] = scaler.fit_transform(df_normalized[[col]])
-        else:
-            df_normalized[col + ' (Norm)'] = df_normalized[col]
-            print(f"⚠️ Skipped normalization on '{col}' due to constant value.")
-
-    return df_normalized
 
 # Objective 2
 def plot_weekly_trends(df):
@@ -230,9 +203,6 @@ def main():
     df = remove_duplicates(df)
     df = handle_missing_values(df)
     df = convert_data_types(df)
-    # df = remove_outliers(df, ['Case Rate - Weekly', 'Death Rate - Weekly', 'Test Rate - Weekly'])
-    # df = normalize_columns(df, ['Case Rate - Weekly', 'Death Rate - Weekly', 'Test Rate - Weekly'])
-
     df.to_csv("data/Cleaned_COVID_data.csv", index=False)
     
     # Objective 2 
