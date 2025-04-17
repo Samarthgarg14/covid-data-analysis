@@ -17,8 +17,6 @@ This project performs a comprehensive data cleaning and analysis pipeline on ZIP
 ### ✅ Objective 1: Data Cleaning and Handling Missing Values
 - Removed duplicates
 - Median imputation for missing values
-- IQR method for outlier removal
-- Min-Max normalization for scaling
 
 ### ✅ Objective 2: Weekly COVID-19 Trend Analysis
 - Line chart for weekly COVID-19 cases, deaths, and tests
